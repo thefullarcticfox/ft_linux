@@ -101,3 +101,8 @@ f433a39be087a9f0b197eb2307ad9f75  libxml2-2.9.12.tar.gz
 0ea3649ef66df80e6ecd04d45ea0f762  sudo-1.9.7p1.tar.gz
 b106680b153bebb67c8987e64bbafcc6  gobject-introspection-1.68.0.tar.xz
 3089a1ebd20a802ec0870ae337d43907  dhcp-4.4.2-P1.tar.gz
+a60273d0fab9c808646fcf5e9edc2e8f  nettle-3.7.3.tar.gz
+95c32a1af583ecfcb280648874c0fbd9  gnutls-3.7.2.tar.xz
+c46f6eb3bd1287031ae5d36465094402  libtasn1-4.17.0.tar.gz
+8ccf11c4a2e2e505b8e516d8549e64a5  p11-kit-0.24.0.tar.xz
+e0356f5ae5623f227a3f69b5e8848ec6  make-ca-1.7.tar.xz
