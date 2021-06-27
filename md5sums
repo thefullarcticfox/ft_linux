@@ -80,12 +80,6 @@ cd8ebed2a67fff2e231026df91af6776  coreutils-8.32-i18n-1.patch
 9a5997c3452909b1769918c759eff8a2  glibc-2.33-fhs-1.patch
 f75cca16a38da6caa7d52151f7136895  kbd-2.4.0-backspace-1.patch
 6819d49562ac48b551d15d2dd0123055  systemd-248-upstream_fixes-1.patch
-c7e775fd5a9d676e8cba9c3732c4df93  libndp-1.8.tar.gz
-570af45b8203e95876d71fecd56cee20  jansson-2.13.1.tar.gz
-9e1e9a9796987cbbbc6563c732c723d1  libsigc++-2.10.7.tar.xz
-a3968c7510447f055fd2204ba947f80f  glib-2.68.3.tar.xz
-729287ad0c60b5b2d6ca9ec4a19d8cec  glib-2.68.3-skip_warnings-1.patch
-637d790b4c4453cf04f141ed71e95957  NetworkManager-1.32.0.tar.xz
 3cf78c539cae019cf96ba38571706e06  curl-7.77.0.tar.xz
 b939ee54eabc6b9b0a8d5c03ace879c9  wget-1.21.1.tar.gz
 e02a5428620b3dd268800c7843b3dd4d  zsh-5.8.tar.xz
@@ -99,10 +93,3 @@ db08bb384e81968957f997ec9808926e  libunistring-0.9.10.tar.xz
 db8765c8d076f1b6caafd9f2542a304a  libxslt-1.1.34.tar.gz
 f433a39be087a9f0b197eb2307ad9f75  libxml2-2.9.12.tar.gz
 0ea3649ef66df80e6ecd04d45ea0f762  sudo-1.9.7p1.tar.gz
-b106680b153bebb67c8987e64bbafcc6  gobject-introspection-1.68.0.tar.xz
-3089a1ebd20a802ec0870ae337d43907  dhcp-4.4.2-P1.tar.gz
-a60273d0fab9c808646fcf5e9edc2e8f  nettle-3.7.3.tar.gz
-95c32a1af583ecfcb280648874c0fbd9  gnutls-3.7.2.tar.xz
-c46f6eb3bd1287031ae5d36465094402  libtasn1-4.17.0.tar.gz
-8ccf11c4a2e2e505b8e516d8549e64a5  p11-kit-0.24.0.tar.xz
-e0356f5ae5623f227a3f69b5e8848ec6  make-ca-1.7.tar.xz
