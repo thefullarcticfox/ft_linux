@@ -82,6 +82,9 @@ http://www.linuxfromscratch.org/patches/lfs/10.1/kbd-2.4.0-backspace-1.patch
 https://www.linuxfromscratch.org/patches/lfs/development/systemd-248-upstream_fixes-1.patch
 http://libndp.org/files/libndp-1.8.tar.gz
 https://digip.org/jansson/releases/jansson-2.13.1.tar.gz
+https://download.gnome.org/sources/libsigc++/2.10/libsigc++-2.10.7.tar.xz
+https://download.gnome.org/sources/glib/2.68/glib-2.68.3.tar.xz
+https://www.linuxfromscratch.org/patches/blfs/svn/glib-2.68.3-skip_warnings-1.patch
 https://download.gnome.org/sources/NetworkManager/1.32/NetworkManager-1.32.0.tar.xz
 https://curl.se/download/curl-7.77.0.tar.xz
 https://ftp.gnu.org/gnu/wget/wget-1.21.1.tar.gz
