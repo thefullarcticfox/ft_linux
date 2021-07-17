@@ -11,10 +11,9 @@ echo -ne "bison\t\t";       bison --version | head -n1
 echo -ne "bzip2\t\t";       bzip2 --version 2>&1 < /dev/null | head -n1
 echo -ne "check\t\t";       pkg-config --modversion check
 echo -ne "coreutils\t";     uname --version | head -n1
-echo -ne "dejagnu\t\t";     echo "dejagnu 1.6.2"
+echo -ne "dejagnu\t\t";     runtest --version 2> /dev/null | grep 'DejaGnu'
 echo -ne "diffutils\t";     diff --version | head -n1
 echo -ne "eudev\t\t";       echo "functionality handled by systemd (udevadm)"
-echo -ne "dejagnu\t\t";     echo "dejagnu 1.6.2"
 echo -ne "e2fsprogs\t";     pkg-config --modversion ext2fs
 echo -ne "expat\t\t";       pkg-config --modversion expat
 echo -ne "expect\t\t";      expect -v | head -n1
@@ -23,16 +22,16 @@ echo -ne "findutils\t";     find --version | head -n1
 echo -ne "flex\t\t";        flex --version | head -n1
 echo -ne "gawk\t\t";        gawk --version | head -n1
 echo -ne "gcc\t\t";         gcc --version | head -n1
-echo -ne "gdbm\t\t";        echo "gdbm 1.19"
+echo -ne "gdbm\t\t";        gdbmtool --version | head -n1
 echo -ne "gettext\t\t";     gettext --version | head -n1
 echo -ne "glibc\t\t";       ldd --version | head -n1
 echo -ne "gmp\t\t";         echo "import ctypes;var_name='__gmp_version';L=ctypes.cdll.LoadLibrary('/usr/lib/libgmp.so');v=ctypes.c_char_p.in_dll(L,var_name);print(v.value)" | python
 echo -ne "gperf\t\t";       gperf --version | head -n1
-echo -ne "groff\t\t";       groff --version | head -n1
 echo -ne "grep\t\t";        grep --version | head -n1
+echo -ne "groff\t\t";       groff --version | head -n1
 echo -ne "grub\t\t";        grub-install --version | head -n1
 echo -ne "gzip\t\t";        gzip --version | head -n1
-echo -ne "iana-etc\t";      echo "iana-etc-20210611"
+echo -ne "iana-etc\t";      cat /etc/protocols | head -n4 | tail -n1
 echo -ne "inetutils\t";     ftp --version | head -n1
 echo -ne "intltool\t";      intltoolize --version | head -n1
 echo -ne "iproute2\t";      ip -V | head -n1
@@ -66,6 +65,8 @@ echo -ne "tzdata\t\t";      echo "tzdata 2021a"
 echo -ne "udev-lfs\t";      echo "not applicable with systemd"
 echo -ne "util-linux\t";    x86_64 --version | head -n1
 echo -ne "vim\t\t";         vim --version | head -n1
-echo -ne "xml::parser\t";   echo "XML::Parser 2.46"
+echo -ne "xml::parser\t";   echo XML::Parser `perl -MXML::Parser -e 'print "$XML::Parser::VERSION"' 2>/dev/null || echo "Not installed"`
 echo -ne "xz utils\t";      xz --version | head -n1
 echo -ne "zlib\t\t";        ls /usr/lib/libz.so.*.* | head -n1
+echo
+echo -ne "linux-kernel\t";  uname -a
