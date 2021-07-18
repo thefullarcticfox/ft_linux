@@ -69,4 +69,10 @@ echo -ne "xml::parser\t";   echo XML::Parser `perl -MXML::Parser -e 'print "$XML
 echo -ne "xz utils\t";      xz --version | head -n1
 echo -ne "zlib\t\t";        ls /usr/lib/libz.so.*.* | head -n1
 echo
+echo "Additional packages"
+echo -ne "git\t\t";         git --version | head -n1
+echo -ne "sudo\t\t";        sudo --version | head -n1
+echo -ne "wget\t\t";        wget --version | head -n1
+echo -ne "curl\t\t";        curl --version | head -n1
+echo
 echo -ne "linux-kernel\t";  uname -a
