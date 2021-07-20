@@ -93,6 +93,7 @@ https://downloads.sourceforge.net/freetype/freetype-2.10.4.tar.xz
 https://unifoundry.com/pub/unifont/unifont-13.0.06/font-builds/unifont-13.0.06.pcf.gz
 https://ftp.rpm.org/popt/releases/popt-1.x/popt-1.18.tar.gz
 https://github.com/rhboot/efivar/releases/download/37/efivar-37.tar.bz2
+https://www.linuxfromscratch.org/patches/blfs/svn/efivar-37-gcc_9-1.patch
 https://github.com/rhboot/efibootmgr/archive/17/efibootmgr-17.tar.gz
 http://xmlsoft.org/sources/libxslt-1.1.34.tar.gz
 http://xmlsoft.org/sources/libxml2-2.9.12.tar.gz
