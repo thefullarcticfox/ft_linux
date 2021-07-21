@@ -3,6 +3,8 @@
 #include <linux/delay.h>
 #include <linux/slab.h>
 
+MODULE_LICENSE("GPL");
+
 int do_work(int *my_int, int retval)
 {
 	int x;
@@ -10,8 +12,7 @@ int do_work(int *my_int, int retval)
 	int z;
 
 	y = *my_int;
-
-	for (x = 0; x < my_int; ++x) {
+	for (x = 0; x < y; ++x) {
 		udelay(10);
 	}
 
