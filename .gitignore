@@ -1,4 +1,4 @@
-*.patch
+sources/*.patch
 *.tar.bz2
 *.tar.gz
 *.tar.xz

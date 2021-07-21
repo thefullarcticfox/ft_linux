@@ -1,0 +1,28 @@
+From 88b70b601990a8431587450f0cbab8bf4ce59bd5 Mon Sep 17 00:00:00 2001
+From: Ivan <thefullarcticfox@users.noreply.github.com>
+Date: Wed, 21 Jul 2021 12:27:17 +0300
+Subject: [PATCH] Makefile: change EXTRAVERSION field
+
+Change EXTRAVERSION field to -thor_kernel as little-penguin-1 Assignment 02 requires
+
+Signed-off-by: Ivan <thefullarcticfox@users.noreply.github.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index e4f5895badb5..af6931dbd90b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 5
+ PATCHLEVEL = 14
+ SUBLEVEL = 0
+-EXTRAVERSION = -rc2
++EXTRAVERSION = -thor_kernel
+ NAME = Opossums on Parade
+
+ # *DOCUMENTATION*
+--
+2.32.0
+
