@@ -4,3 +4,12 @@
 *.tar.xz
 *.zip
 *.gz
+.vscode/
+*.d
+*.o
+*.ko
+*.cmd
+*.mod
+*.mod.c
+*.order
+*.symvers
