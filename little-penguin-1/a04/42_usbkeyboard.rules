@@ -1,5 +1,8 @@
 # Rule description:
 # -----------------------------------------------------------------
+# > ACTION="add", ACTION="remove"
+# ACTION filters and defines which action executes a rule
+#
 # > SUBSYSTEMS=="usb"
 # SUBSYSTEMS usb to filter only usb devices
 #
@@ -12,7 +15,9 @@
 # will successfully execute module install if not installed already
 #
 # -----------------------------------------------------------------
-#
+# Helper utilities:
+# - `udevadm info -a -p <device-path>`
+# - `lsusb -v`
 # On systemd systems this goes to /usr/lib/udev/rules.d/
 # May also go to /etc/udev/rules.d/
 #
