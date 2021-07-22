@@ -1,0 +1,1 @@
+SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{bInterfaceProtocol}==1, RUN+="/root/simple_usb_keyboard_module.ko"
