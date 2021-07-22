@@ -14,6 +14,26 @@ MODULE_DESCRIPTION("A Simple char device module for little-penguin-1");
 MODULE_VERSION("0.01");
 
 static ssize_t fortytwo_read(struct file *fp, char __user *buf,
+		size_t len, loff_t *offset);
+static ssize_t fortytwo_write(struct file *fp, const char __user *buf,
+		size_t len, loff_t *offset);
+
+static const struct file_operations fortytwo_fops = {
+	.owner		= THIS_MODULE,
+	.read		= fortytwo_read,
+	.write		= fortytwo_write,
+	.llseek 	= no_llseek,
+};
+
+static struct miscdevice fortytwo_dev = {
+	.minor		= MISC_DYNAMIC_MINOR,
+	.name		= "fortytwo",
+	.fops		= &fortytwo_fops,
+	.mode		= S_IRUGO | S_IWUGO
+};
+
+
+static ssize_t fortytwo_read(struct file *fp, char __user *buf,
 		size_t len, loff_t *offset)
 {
 	ssize_t retval;
@@ -21,6 +41,7 @@ static ssize_t fortytwo_read(struct file *fp, char __user *buf,
 	if (len <= 0) {
 		return 0;
 	}
+
 	if (len > 5) {
 		len = 5;
 	}
@@ -46,31 +67,26 @@ static ssize_t fortytwo_read(struct file *fp, char __user *buf,
 static ssize_t fortytwo_write(struct file *fp, const char __user *buf,
 		size_t len, loff_t *offset)
 {
-	char tmpbuf[5];
+	ssize_t	retval;
+	char	tmpbuf[5];
 
 	memset(tmpbuf, 0, 5);
 
-	if (len < 5 || copy_from_user(tmpbuf, buf, 5) ||
-				memcmp(tmpbuf, "salec", 5)) {
+	if (len < 5 || len > 5) {
+		return -EINVAL;
+	}
+
+	retval = copy_from_user(tmpbuf, buf, 5);
+	if (retval) {
+		return -EFAULT;
+	}
+
+	if (memcmp(tmpbuf, "salec", 5)) {
 		return -EINVAL;
 	}
 
 	return len;
 }
-
-static const struct file_operations fortytwo_fops = {
-	.owner		= THIS_MODULE,
-	.read		= fortytwo_read,
-	.write		= fortytwo_write,
-	.llseek 	= no_llseek,
-};
-
-static struct miscdevice fortytwo_dev = {
-	.minor		= MISC_DYNAMIC_MINOR,
-	.name		= "fortytwo",
-	.fops		= &fortytwo_fops,
-	.mode		= S_IRUGO | S_IWUGO
-};
 
 static int __init fortytwo_init(void)
 {

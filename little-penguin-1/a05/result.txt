@@ -1,0 +1,24 @@
+> reading 5 bytes
+read: salec
+
+> reading 3 bytes
+read: sal
+
+> reading 2 bytes
+read: sa
+
+> reading 24 bytes
+read: salec
+
+> writing `salec`
+successfully wrote 5 bytes
+
+> writing `sales`
+errno: 22 Invalid argument
+
+> writing `sale`
+errno: 22 Invalid argument
+
+> writing `salec42`
+errno: 22 Invalid argument
+
