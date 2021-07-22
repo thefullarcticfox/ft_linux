@@ -7,16 +7,16 @@ MODULE_AUTHOR("salec aka thefullarcticfox");
 MODULE_DESCRIPTION("A Simple USB keyboard module for little-penguin-1");
 MODULE_VERSION("0.01");
 
-static int __init usbkeyboard_module_init(void)
+static int __init usbkeyboard_init(void)
 {
 	printk(KERN_INFO "simple usb keyboard module init\n");
 	return 0;
 }
 
-static void __exit usbkeyboard_module_cleanup(void)
+static void __exit usbkeyboard_cleanup(void)
 {
 	printk(KERN_INFO "simple usb keyboard module cleanup\n");
 }
 
-module_init(usbkeyboard_module_init);
-module_exit(usbkeyboard_module_cleanup);
+module_init(usbkeyboard_init);
+module_exit(usbkeyboard_cleanup);
