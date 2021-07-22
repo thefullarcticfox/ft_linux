@@ -1,0 +1,21 @@
+# Rule description:
+# -----------------------------------------------------------------
+# > SUBSYSTEMS=="usb"
+# SUBSYSTEMS usb to filter only usb devices
+#
+# > ATTRS{bInterfaceProtocol}=="01"
+# bInterfaceProtocol 1 is a keyboard protocol code
+# reference: https://www.usb.org/sites/default/files/hid1_11.pdf
+#
+# > RUN+="/sbin/insmod /root/simple_usb_keyboard_module.ko"
+# command to run if filters before it match
+# will successfully execute module install if not installed already
+#
+# -----------------------------------------------------------------
+#
+# On systemd systems this goes to /usr/lib/udev/rules.d/
+# May also go to /etc/udev/rules.d/
+#
+
+ACTION=="add", SUBSYSTEMS=="usb", ATTRS{bInterfaceProtocol}=="01", RUN+="/sbin/insmod /root/simple_usb_keyboard_module.ko"
+ACTION=="remove", SUBSYSTEMS=="usb", ATTRS{bInterfaceProtocol}=="01", RUN+="/sbin/rmmod /root/simple_usb_keyboard_module.ko"
