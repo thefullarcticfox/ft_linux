@@ -1,1 +1,1 @@
-SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{bInterfaceProtocol}==1, RUN+="/root/simple_usb_keyboard_module.ko"
+SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{bInterfaceProtocol}==1, RUN+="insmod /root/simple_usb_keyboard_module.ko"
