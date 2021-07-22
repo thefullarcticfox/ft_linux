@@ -99,3 +99,5 @@ e795e52eeefc0d2c62c6c4bd748d2d38  efivar-37-gcc_9-1.patch
 de30d259ad0f8f2ac22b0584e567daae  git-2.32.0.tar.xz
 8ccf11c4a2e2e505b8e516d8549e64a5  p11-kit-0.24.0.tar.xz
 e0356f5ae5623f227a3f69b5e8848ec6  make-ca-1.7.tar.xz
+5bc27df16155302f308d409e73589872  libusb-1.0.24.tar.bz2
+91b0c9a3382d6f4c382df7a98462de2e  usbutils-013.tar.xz
