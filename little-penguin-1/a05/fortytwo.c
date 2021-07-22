@@ -32,7 +32,6 @@ static struct miscdevice fortytwo_dev = {
 	.mode		= S_IRUGO | S_IWUGO
 };
 
-
 static ssize_t fortytwo_read(struct file *fp, char __user *buf,
 		size_t len, loff_t *offset)
 {
