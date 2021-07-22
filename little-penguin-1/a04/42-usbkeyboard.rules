@@ -1,0 +1,37 @@
+# Rules for any added or removed USB Keyboard
+# ------------------------------------------------------------------------------
+# Rule description:
+# ------------------------------------------------------------------------------
+# > ACTION="add", ACTION="remove"
+# ACTION filter defines which action executes a rule
+#
+# > SUBSYSTEMS=="usb"
+# SUBSYSTEMS usb to filter only usb devices
+#
+# > ATTRS{bInterfaceProtocol}=="01"
+# ATTRS define device attributes to be checked
+# bInterfaceProtocol 1 is a keyboard protocol code
+# reference: https://www.usb.org/sites/default/files/hid1_11.pdf
+#
+# > RUN+="/sbin/insmod /root/simple_usb_keyboard_module.ko"
+# Command to run if filters before it match
+# will successfully execute module install if not installed already
+#
+# > ENV{ID_INPUT_KEYBOARD}=="1"
+# ENV define environment variables to be checked
+# Needed on ACTION=="remove" because attributes get deleted on device removal
+# ID_INPUT_KEYBOARD environment variable created for keyboards
+#
+# ------------------------------------------------------------------------------
+# Helper utilities:
+# - udevadm info -a -p <device-path>
+# - udevadm monitor --property/--environment
+# - lsusb -v
+#
+# ------------------------------------------------------------------------------
+# Rules go to /etc/udev/rules.d/ or /usr/lib/udev/rules.d/
+# ------------------------------------------------------------------------------
+
+ACTION=="add", SUBSYSTEMS=="usb", ATTRS{bInterfaceProtocol}=="01", RUN+="/sbin/insmod /root/simple_usb_keyboard_module.ko"
+
+ACTION=="remove", ENV{ID_INPUT_KEYBOARD}=="1", RUN+="/sbin/rmmod /root/simple_usb_keyboard_module.ko"
