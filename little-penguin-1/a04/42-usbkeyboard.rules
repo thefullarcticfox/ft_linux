@@ -1,6 +1,7 @@
+# ------------------------------------------------------------------------------
 # Rules for any added or removed USB Keyboard
 # ------------------------------------------------------------------------------
-# Rule description:
+# Description:
 # ------------------------------------------------------------------------------
 # > ACTION="add", ACTION="remove"
 # ACTION filter defines which action executes a rule
@@ -24,6 +25,7 @@
 #
 # ------------------------------------------------------------------------------
 # Helper utilities:
+# ------------------------------------------------------------------------------
 # - udevadm info -a -p <device-path>
 # - udevadm monitor --property/--environment
 # - lsusb -v
