@@ -7,12 +7,11 @@ MODULE_LICENSE("GPL");
 
 int do_work(int *my_int, int retval)
 {
-	int x;
-	int y;
+	int x = 0;
+	int y = *my_int;
 	int z;
 
-	y = *my_int;
-	for (x = 0; x < y; ++x) {
+	for (; x < y; ++x) {
 		udelay(10);
 	}
 
@@ -23,7 +22,6 @@ int do_work(int *my_int, int retval)
 
 	z = x * y;
 
-	/* return 1; */
 	return z;
 }
 

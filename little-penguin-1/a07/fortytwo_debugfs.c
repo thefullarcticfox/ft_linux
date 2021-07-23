@@ -253,7 +253,7 @@ static int __init fortytwo_init(void)
 	 * PAGE_SIZE is 4096 most of the time + 1 byte for EOF
 	 * GFP_KERNEL - Allocate normal kernel ram. May sleep.
 	 */
-	foo_data = kmalloc(PAGE_SIZE + 1, GFP_KERNEL);
+	foo_data = (char*)kmalloc(sizeof(char) * (PAGE_SIZE + 1), GFP_KERNEL);
 	if (!foo_data) {
 		printk(KERN_ERR "/debugfs/fortytwo/foo: could not allocate memory\n");
 		return -ENOMEM;
