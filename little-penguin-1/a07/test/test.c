@@ -84,9 +84,9 @@ void	jiffies_test()
 		return;
 	}
 
-	readtest(fd, 42);
-	readtest(fd, 42);
-	readtest(fd, 42);
+	readtest(fd, 5);
+	readtest(fd, 3);
+	readtest(fd, 11);
 	readtest(fd, 42);
 
 	writetest(fd, "salec");
