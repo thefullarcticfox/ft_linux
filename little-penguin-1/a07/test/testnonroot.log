@@ -1,0 +1,90 @@
+Error: Permission denied
+--------------------
+> Testing /sys/kernel/debug/fortytwo/id
+> reading 5 bytes
+read: salec
+actual bytes read: 5
+
+> reading 3 bytes
+read: sal
+actual bytes read: 3
+
+> reading 2 bytes
+read: sa
+actual bytes read: 2
+
+> reading 24 bytes
+read: salec
+actual bytes read: 5
+
+> writing `salec`
+successfully wrote 5 bytes
+
+> writing `sales`
+errno: 22 Invalid argument
+
+> writing `sale`
+errno: 22 Invalid argument
+
+> writing `salec42`
+errno: 22 Invalid argument
+
+--------------------
+> Testing /sys/kernel/debug/fortytwo/jiffies
+> reading 42 bytes
+read: 4295155064
+actual bytes read: 10
+
+> reading 42 bytes
+read: 4295155064
+actual bytes read: 10
+
+> reading 42 bytes
+read: 4295155064
+actual bytes read: 10
+
+> reading 42 bytes
+read: 4295155064
+actual bytes read: 10
+
+> writing `salec`
+errno: 9 Bad file descriptor
+
+--------------------
+> Testing /sys/kernel/debug/fortytwo/foo
+> reading 5 bytes
+read: salecsalessalesalec42
+actual bytes read: 21
+
+> reading 3 bytes
+read: 
+actual bytes read: 0
+
+> reading 2 bytes
+read: 
+actual bytes read: 0
+
+> reading 24 bytes
+read: 
+actual bytes read: 0
+
+--------------------
+> Testing /sys/kernel/debug/fortytwo/foo (root required to write)
+--------------------
+> Testing /sys/kernel/debug/fortytwo/foo
+> reading 5 bytes
+read: salecsalessalesalec42
+actual bytes read: 21
+
+> reading 3 bytes
+read: 
+actual bytes read: 0
+
+> reading 2 bytes
+read: 
+actual bytes read: 0
+
+> reading 24 bytes
+read: 
+actual bytes read: 0
+
