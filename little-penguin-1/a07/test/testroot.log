@@ -31,19 +31,19 @@ errno: 22 Invalid argument
 --------------------
 > Testing /sys/kernel/debug/fortytwo/jiffies
 > reading 42 bytes
-read: 4295162398
+read: 4294781990
 actual bytes read: 10
 
 > reading 42 bytes
-read: 4295162398
+read: 4294781990
 actual bytes read: 10
 
 > reading 42 bytes
-read: 4295162398
+read: 4294781990
 actual bytes read: 10
 
 > reading 42 bytes
-read: 4295162398
+read: 4294781990
 actual bytes read: 10
 
 > writing `salec`
@@ -52,8 +52,8 @@ errno: 9 Bad file descriptor
 --------------------
 > Testing /sys/kernel/debug/fortytwo/foo
 > reading 5 bytes
-read: salecsalessalesalec42
-actual bytes read: 21
+read: 
+actual bytes read: 0
 
 > reading 3 bytes
 read: 
@@ -70,8 +70,8 @@ actual bytes read: 0
 --------------------
 > Testing /sys/kernel/debug/fortytwo/foo (root required to write)
 > reading 5 bytes
-read: salecsalessalesalec42
-actual bytes read: 21
+read: 
+actual bytes read: 0
 
 > reading 3 bytes
 read: 
@@ -100,18 +100,18 @@ successfully wrote 7 bytes
 --------------------
 > Testing /sys/kernel/debug/fortytwo/foo
 > reading 5 bytes
-read: salecsalessalesalec42salecsalessalesalec42
-actual bytes read: 42
+read: salec
+actual bytes read: 5
 
 > reading 3 bytes
-read: 
-actual bytes read: 0
+read: sal
+actual bytes read: 3
 
 > reading 2 bytes
-read: 
-actual bytes read: 0
+read: es
+actual bytes read: 2
 
 > reading 24 bytes
-read: 
-actual bytes read: 0
+read: salesalec42
+actual bytes read: 11
 
