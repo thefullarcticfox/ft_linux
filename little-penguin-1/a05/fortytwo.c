@@ -21,8 +21,7 @@ static ssize_t fortytwo_write(struct file *fp, const char __user *buf,
 static const struct file_operations fortytwo_fops = {
 	.owner		= THIS_MODULE,
 	.read		= fortytwo_read,
-	.write		= fortytwo_write,
-	.llseek 	= no_llseek,
+	.write		= fortytwo_write
 };
 
 static struct miscdevice fortytwo_dev = {
