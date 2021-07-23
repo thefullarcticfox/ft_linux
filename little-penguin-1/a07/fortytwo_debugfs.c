@@ -127,23 +127,23 @@ static int __init fortytwo_init(void)
 	);
 	if (!id_file || id_file == ERR_PTR(-ENODEV)) {
 		printk(KERN_ERR "/debugfs/fortytwo/id: failed to create file\n");
-		return -1;
+		return -ENODEV;
 	}
 
 	jiffies_file = debugfs_create_file(
 		"jiffies", S_IRUGO, fortytwo_dir, NULL, &jiffies_file_fops
 	);
 	if (!jiffies_file || jiffies_file == ERR_PTR(-ENODEV)) {
-		printk(KERN_ERR "/debugfs/fortytwo/id: failed to create file\n");
-		return -1;
+		printk(KERN_ERR "/debugfs/fortytwo/jiffies: failed to create file\n");
+		return -ENODEV;
 	}
 
 	foo_file = debugfs_create_file(
 		"foo", S_IRUGO | S_IWUGO, fortytwo_dir, NULL, &foo_file_fops
 	);
 	if (!foo_file || foo_file == ERR_PTR(-ENODEV)) {
-		printk(KERN_ERR "/debugfs/fortytwo/id: failed to create file\n");
-		return -1;
+		printk(KERN_ERR "/debugfs/fortytwo/foo: failed to create file\n");
+		return -ENODEV;
 	}
 
 	return 0;
