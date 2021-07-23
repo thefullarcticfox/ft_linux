@@ -7,6 +7,7 @@
 #define ID_FILE "/sys/kernel/debug/fortytwo/id"
 #define JIFFIES_FILE "/sys/kernel/debug/fortytwo/jiffies"
 #define FOO_FILE "/sys/kernel/debug/fortytwo/foo"
+#define PAGE_SIZE getpagesize()
 
 void	printerrno() {
 	printf("errno: %d %s\n", errno, strerror(errno));
@@ -16,7 +17,7 @@ void	printerrno() {
 void	readtest(int fd, size_t bytes)
 {
 	ssize_t	retval;
-	char	buf[42];
+	char	buf[PAGE_SIZE + 1];
 
 	printf("> reading %ld bytes\n", bytes);
 	retval = read(fd, buf, bytes);
@@ -25,7 +26,7 @@ void	readtest(int fd, size_t bytes)
 		printerrno();
 	} else {
 		buf[retval] = 0;
-		printf("read: %s\n", buf);
+		printf("read: %s\nactual bytes read: %ld\n", buf, retval);
 	}
 
 	printf("\n");
@@ -93,11 +94,11 @@ void	jiffies_test()
 	close(fd);
 }
 
-void	foo_test()
+void	foo_root_test()
 {
 	int		fd;
 
-	printf("--------------------\n> Testing %s\n", FOO_FILE);
+	printf("--------------------\n> Testing %s (root required to write)\n", FOO_FILE);
 
 	if ((fd = open(FOO_FILE, O_RDWR)) < 0) {
 		perror("Error");
@@ -117,10 +118,32 @@ void	foo_test()
 	close(fd);
 }
 
+
+void	foo_test()
+{
+	int		fd;
+
+	printf("--------------------\n> Testing %s\n", FOO_FILE);
+
+	if ((fd = open(FOO_FILE, O_RDONLY)) < 0) {
+		perror("Error");
+		return;
+	}
+
+	readtest(fd, 5);
+	readtest(fd, 3);
+	readtest(fd, 2);
+	readtest(fd, 24);
+
+	close(fd);
+}
+
 int		main()
 {
 	id_test();
 	jiffies_test();
+	foo_test();
+	foo_root_test();
 	foo_test();
 
     return 0;

@@ -129,28 +129,38 @@ static ssize_t jiffies_file_read(struct file *fp, char __user *buf,
 static ssize_t foo_file_read(struct file *fp, char __user *buf,
 		size_t len, loff_t *offset)
 {
-	ssize_t 	retval;
-	long long 	size;
-
-	down_read(&foo_lock);
+	ssize_t retval;
+	// loff_t	bytes;
 
 	if (*offset + len >= PAGE_SIZE) {
 		len = PAGE_SIZE - *offset;
 	}
 
-	if (len <= 0) {
+	if (len == 0) {
 		return 0;
 	}
 
+	// lock rwsem for read
+	printk(KERN_DEBUG "/debugfs/fortytwo/foo: locking read offset %lld\n", *offset);
+	down_read(&foo_lock);
+
+	// additional check for data length (EOF)
+	len = strlen(foo_data + *offset);
+
 	retval = copy_to_user(buf, foo_data + *offset, len);
 	*offset += len - retval;
+
+	// unlock rwsem for read
+	printk(KERN_DEBUG "/debugfs/fortytwo/foo: unlocking read\n");
+	up_read(&foo_lock);
+	printk(KERN_DEBUG "/debugfs/fortytwo/foo: new read offset %lld \n", *offset);
+
 	if (retval) {
 		printk(KERN_ERR "/debugfs/fortytwo/foo: could not copy %ld bytes to user\n",
 			retval);
 		return -EFAULT;
 	}
 
-	up_read(&foo_lock);
 	return len;
 }
 
@@ -158,8 +168,20 @@ static ssize_t foo_file_write(struct file *fp, const char __user *buf,
 		size_t len, loff_t *offset)
 {
 	ssize_t	retval;
+	// loff_t	bytes;
 
+	// lock rwsem for write
+	printk(KERN_DEBUG "/debugfs/fortytwo/foo: locking write offset %lld\n", *offset);
 	down_write(&foo_lock);
+
+	/*
+	 * thoughts on possible behaviours: read and write ops have common *offset
+	 * If i read and then write to any common file => it would write starting from
+	 * position of the last read which is standard file behaviour
+	 * but here writing to this file allowed only for root user, so:
+	 * i can automatically 'lseek' to 0 byte so i would need to write all bytes at once
+	 * while also moving offset of read or leave this as a standard file behaviour
+	 */
 
 	if (*offset == 0) {
 		memset(foo_data, 0, PAGE_SIZE);
@@ -169,19 +191,20 @@ static ssize_t foo_file_write(struct file *fp, const char __user *buf,
 		len = PAGE_SIZE - *offset;
 	}
 
-	if (len <= 0) {
-		return 0;
-	}
-
 	retval = copy_from_user(foo_data + *offset, buf, len);
 	*offset += len - retval;
+
+	// unlock rwsem for write
+	printk(KERN_DEBUG "/debugfs/fortytwo/foo: unlocking write %d\n", foo_data[*offset] == '\0');
+	up_write(&foo_lock);
+	printk(KERN_DEBUG "/debugfs/fortytwo/foo: new write offset %lld\n", *offset);
+
 	if (retval) {
 		printk(KERN_ERR "/debugfs/fortytwo/foo: could not copy %ld bytes from user\n",
 			retval);
 		return -EFAULT;
 	}
 
-	up_write(&foo_lock);
 	return len;
 }
 
@@ -223,16 +246,16 @@ static int __init fortytwo_init(void)
 
 	/*
 	 * Allocating memory for foo file data
-	 * PAGE_SIZE is 4096 most of the time
+	 * PAGE_SIZE is 4096 most of the time + 1 byte for EOF
 	 * GFP_KERNEL - Allocate normal kernel ram. May sleep.
 	 */
-	foo_data = kmalloc(PAGE_SIZE, GFP_KERNEL);
+	foo_data = kmalloc(PAGE_SIZE + 1, GFP_KERNEL);
 	if (!foo_data) {
 		printk(KERN_ERR "/debugfs/fortytwo/foo: could not allocate memory\n");
 		return -ENOMEM;
 	}
 
-	memset(foo_data, 0, PAGE_SIZE);
+	memset(foo_data, 0, PAGE_SIZE + 1);
 
 	printk(KERN_INFO "/debugfs/fortytwo: created\n");
 	printk(KERN_INFO "/debugfs/fortytwo: pagesize is %ld\n", PAGE_SIZE);
