@@ -130,7 +130,6 @@ static ssize_t foo_file_read(struct file *fp, char __user *buf,
 		size_t len, loff_t *offset)
 {
 	ssize_t retval;
-	// loff_t	bytes;
 
 	if (*offset + len >= PAGE_SIZE) {
 		len = PAGE_SIZE - *offset;
@@ -140,8 +139,9 @@ static ssize_t foo_file_read(struct file *fp, char __user *buf,
 		return 0;
 	}
 
-	// lock rwsem for read
-	printk(KERN_DEBUG "/debugfs/fortytwo/foo: locking read offset %lld\n", *offset);
+	/* *************** *
+	 * READ LOCK BEGIN *
+	 * *************** */
 	down_read(&foo_lock);
 
 	// additional check for data length (EOF)
@@ -150,10 +150,10 @@ static ssize_t foo_file_read(struct file *fp, char __user *buf,
 	retval = copy_to_user(buf, foo_data + *offset, len);
 	*offset += len - retval;
 
-	// unlock rwsem for read
-	printk(KERN_DEBUG "/debugfs/fortytwo/foo: unlocking read\n");
 	up_read(&foo_lock);
-	printk(KERN_DEBUG "/debugfs/fortytwo/foo: new read offset %lld \n", *offset);
+	/* *************** *
+	 *  READ LOCK END  *
+	 * *************** */
 
 	if (retval) {
 		printk(KERN_ERR "/debugfs/fortytwo/foo: could not copy %ld bytes to user\n",
@@ -161,27 +161,30 @@ static ssize_t foo_file_read(struct file *fp, char __user *buf,
 		return -EFAULT;
 	}
 
+	printk(KERN_DEBUG "/debugfs/fortytwo/foo: read success: %ld bytes\n", len);
 	return len;
 }
+
+/*
+ * thoughts on possible behaviours: read and write ops have common *offset
+ * If i read and then write to any common file it will write starting from
+ * position of the last read which is standard file behaviour.
+ * Here writing to this file allowed only for root user, so two variants:
+ * 1. automatically 'lseek' to 0 byte on write
+ *    (requires to write all bytes at once)
+ * 2. leave this as a standard file behaviour
+ *    (as it doesn't matter - those behaviours bound to fd)
+ */
 
 static ssize_t foo_file_write(struct file *fp, const char __user *buf,
 		size_t len, loff_t *offset)
 {
 	ssize_t	retval;
-	// loff_t	bytes;
 
-	// lock rwsem for write
-	printk(KERN_DEBUG "/debugfs/fortytwo/foo: locking write offset %lld\n", *offset);
+	/* **************** *
+	 * WRITE LOCK BEGIN *
+	 * **************** */
 	down_write(&foo_lock);
-
-	/*
-	 * thoughts on possible behaviours: read and write ops have common *offset
-	 * If i read and then write to any common file => it would write starting from
-	 * position of the last read which is standard file behaviour
-	 * but here writing to this file allowed only for root user, so:
-	 * i can automatically 'lseek' to 0 byte so i would need to write all bytes at once
-	 * while also moving offset of read or leave this as a standard file behaviour
-	 */
 
 	if (*offset == 0) {
 		memset(foo_data, 0, PAGE_SIZE);
@@ -194,10 +197,10 @@ static ssize_t foo_file_write(struct file *fp, const char __user *buf,
 	retval = copy_from_user(foo_data + *offset, buf, len);
 	*offset += len - retval;
 
-	// unlock rwsem for write
-	printk(KERN_DEBUG "/debugfs/fortytwo/foo: unlocking write %d\n", foo_data[*offset] == '\0');
 	up_write(&foo_lock);
-	printk(KERN_DEBUG "/debugfs/fortytwo/foo: new write offset %lld\n", *offset);
+	/* **************** *
+	 *  WRITE LOCK END  *
+	 * **************** */
 
 	if (retval) {
 		printk(KERN_ERR "/debugfs/fortytwo/foo: could not copy %ld bytes from user\n",
@@ -205,6 +208,7 @@ static ssize_t foo_file_write(struct file *fp, const char __user *buf,
 		return -EFAULT;
 	}
 
+	printk(KERN_DEBUG "/debugfs/fortytwo/foo: write success: %ld bytes\n", len);
 	return len;
 }
 
