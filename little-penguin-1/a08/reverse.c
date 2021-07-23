@@ -51,7 +51,7 @@ static ssize_t reverse_read(struct file *fp, char __user *user,
 	up_read(&reverse_lock);
 	tmp[i] = 0x0;
 
-	retval = simple_read_from_buffer(user, size, offset, tmp, PAGE_SIZE);
+	retval = simple_read_from_buffer(user, size, offset, tmp, strlen(tmp));
 	kfree(tmp);
 
 	return retval;
@@ -64,7 +64,7 @@ static ssize_t reverse_write(struct file *fp, const char __user *user,
 
 	down_write(&reverse_lock);
 	retval = simple_write_to_buffer(str, size, offset, user, PAGE_SIZE);
-	str[size] = 0x0;
+	str[retval] = 0x0;
 	up_write(&reverse_lock);
 
 	return retval;

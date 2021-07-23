@@ -30,20 +30,20 @@ errno: 22 Invalid argument
 
 --------------------
 > Testing /sys/kernel/debug/fortytwo/jiffies
-> reading 42 bytes
-read: 4294781990
+> reading 5 bytes
+read: 42947
+actual bytes read: 5
+
+> reading 3 bytes
+read: 429
+actual bytes read: 3
+
+> reading 11 bytes
+read: 4294763120
 actual bytes read: 10
 
 > reading 42 bytes
-read: 4294781990
-actual bytes read: 10
-
-> reading 42 bytes
-read: 4294781990
-actual bytes read: 10
-
-> reading 42 bytes
-read: 4294781990
+read: 4294763120
 actual bytes read: 10
 
 > writing `salec`

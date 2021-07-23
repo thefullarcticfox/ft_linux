@@ -1,35 +1,27 @@
-[   79.609090] /debugfs/fortytwo: created
-[   79.609102] /debugfs/fortytwo: pagesize is 4096
-[  114.854629] /debugfs/fortytwo/foo: read success: 0 bytes
-[  114.854632] /debugfs/fortytwo/foo: read success: 0 bytes
-[  114.854633] /debugfs/fortytwo/foo: read success: 0 bytes
-[  114.854634] /debugfs/fortytwo/foo: read success: 0 bytes
-[  114.854637] /debugfs/fortytwo/foo: read success: 0 bytes
-[  114.854638] /debugfs/fortytwo/foo: read success: 0 bytes
-[  114.854639] /debugfs/fortytwo/foo: read success: 0 bytes
-[  114.854640] /debugfs/fortytwo/foo: read success: 0 bytes
-[  114.854641] /debugfs/fortytwo/foo: write success: 5 bytes
-[  114.854642] /debugfs/fortytwo/foo: write success: 5 bytes
-[  114.854643] /debugfs/fortytwo/foo: write success: 4 bytes
-[  114.854643] /debugfs/fortytwo/foo: write success: 7 bytes
-[  114.854646] /debugfs/fortytwo/foo: read success: 5 bytes
-[  114.854689] /debugfs/fortytwo/foo: read success: 3 bytes
-[  114.854690] /debugfs/fortytwo/foo: read success: 2 bytes
-[  114.854691] /debugfs/fortytwo/foo: read success: 11 bytes
-[  154.258323] /debugfs/fortytwo/foo: read success: 5 bytes
-[  154.258326] /debugfs/fortytwo/foo: read success: 3 bytes
-[  154.258327] /debugfs/fortytwo/foo: read success: 2 bytes
-[  154.258328] /debugfs/fortytwo/foo: read success: 11 bytes
-[  154.258331] /debugfs/fortytwo/foo: read success: 5 bytes
-[  154.258332] /debugfs/fortytwo/foo: read success: 3 bytes
-[  154.258333] /debugfs/fortytwo/foo: read success: 2 bytes
-[  154.258334] /debugfs/fortytwo/foo: read success: 11 bytes
-[  154.258335] /debugfs/fortytwo/foo: write success: 5 bytes
-[  154.258336] /debugfs/fortytwo/foo: write success: 5 bytes
-[  154.258337] /debugfs/fortytwo/foo: write success: 4 bytes
-[  154.258338] /debugfs/fortytwo/foo: write success: 7 bytes
-[  154.258340] /debugfs/fortytwo/foo: read success: 5 bytes
-[  154.258341] /debugfs/fortytwo/foo: read success: 3 bytes
-[  154.258342] /debugfs/fortytwo/foo: read success: 2 bytes
-[  154.258343] /debugfs/fortytwo/foo: read success: 24 bytes
-[  208.462165] /debugfs/fortytwo: removed
+[   44.908534] /debugfs/fortytwo: created
+[   44.908549] /debugfs/fortytwo: pagesize is 4096
+[   95.858033] /debugfs/fortytwo/foo: read success: 0 bytes
+[   95.858036] /debugfs/fortytwo/foo: read success: 0 bytes
+[   95.858037] /debugfs/fortytwo/foo: read success: 0 bytes
+[   95.858038] /debugfs/fortytwo/foo: read success: 0 bytes
+[   95.858041] /debugfs/fortytwo/foo: read success: 0 bytes
+[   95.858042] /debugfs/fortytwo/foo: read success: 0 bytes
+[   95.858043] /debugfs/fortytwo/foo: read success: 0 bytes
+[   95.858044] /debugfs/fortytwo/foo: read success: 0 bytes
+[   95.858045] /debugfs/fortytwo/foo: write success: 5 bytes
+[   95.858046] /debugfs/fortytwo/foo: write success: 5 bytes
+[   95.858047] /debugfs/fortytwo/foo: write success: 4 bytes
+[   95.858048] /debugfs/fortytwo/foo: write success: 7 bytes
+[   95.858051] /debugfs/fortytwo/foo: read success: 5 bytes
+[   95.858052] /debugfs/fortytwo/foo: read success: 3 bytes
+[   95.858052] /debugfs/fortytwo/foo: read success: 2 bytes
+[   95.858053] /debugfs/fortytwo/foo: read success: 11 bytes
+[  118.452237] /debugfs/fortytwo/foo: read success: 5 bytes
+[  118.452241] /debugfs/fortytwo/foo: read success: 3 bytes
+[  118.452242] /debugfs/fortytwo/foo: read success: 2 bytes
+[  118.452243] /debugfs/fortytwo/foo: read success: 11 bytes
+[  118.452270] /debugfs/fortytwo/foo: read success: 5 bytes
+[  118.452271] /debugfs/fortytwo/foo: read success: 3 bytes
+[  118.452272] /debugfs/fortytwo/foo: read success: 2 bytes
+[  118.452273] /debugfs/fortytwo/foo: read success: 11 bytes
+[  136.121828] /debugfs/fortytwo: removed

@@ -1,3 +1,4 @@
+Error: Permission denied
 --------------------
 > Testing /sys/kernel/debug/fortytwo/id
 > reading 5 bytes
@@ -30,20 +31,20 @@ errno: 22 Invalid argument
 
 --------------------
 > Testing /sys/kernel/debug/fortytwo/jiffies
-> reading 42 bytes
-read: 4294821397
+> reading 5 bytes
+read: 42947
+actual bytes read: 5
+
+> reading 3 bytes
+read: 429
+actual bytes read: 3
+
+> reading 11 bytes
+read: 4294785715
 actual bytes read: 10
 
 > reading 42 bytes
-read: 4294821397
-actual bytes read: 10
-
-> reading 42 bytes
-read: 4294821397
-actual bytes read: 10
-
-> reading 42 bytes
-read: 4294821397
+read: 4294785715
 actual bytes read: 10
 
 > writing `salec`
@@ -69,34 +70,6 @@ actual bytes read: 11
 
 --------------------
 > Testing /sys/kernel/debug/fortytwo/foo (root required to write)
-> reading 5 bytes
-read: salec
-actual bytes read: 5
-
-> reading 3 bytes
-read: sal
-actual bytes read: 3
-
-> reading 2 bytes
-read: es
-actual bytes read: 2
-
-> reading 24 bytes
-read: salesalec42
-actual bytes read: 11
-
-> writing `salec`
-successfully wrote 5 bytes
-
-> writing `sales`
-successfully wrote 5 bytes
-
-> writing `sale`
-successfully wrote 4 bytes
-
-> writing `salec42`
-successfully wrote 7 bytes
-
 --------------------
 > Testing /sys/kernel/debug/fortytwo/foo
 > reading 5 bytes
@@ -112,6 +85,6 @@ read: es
 actual bytes read: 2
 
 > reading 24 bytes
-read: salesalec42salecsalessal
-actual bytes read: 24
+read: salesalec42
+actual bytes read: 11
 
