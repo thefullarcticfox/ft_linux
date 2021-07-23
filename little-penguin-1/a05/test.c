@@ -62,5 +62,7 @@ int		main()
 	writetest(fd, "sale");
 	writetest(fd, "salec42");
 
+	close(fd);
+
     return 0;
 }

@@ -36,7 +36,7 @@ static ssize_t fortytwo_read(struct file *fp, char __user *buf,
 {
 	ssize_t retval;
 
-	if (len <= 0) {
+	if (len == 0) {
 		return 0;
 	}
 
@@ -46,7 +46,7 @@ static ssize_t fortytwo_read(struct file *fp, char __user *buf,
 
 	retval = copy_to_user(buf, "salec", len);
 	if (retval) {
-		printk(KERN_ERR "/dev/fortytwo: could not copy %ld bytes\n",
+		printk(KERN_ERR "/dev/fortytwo: could not copy %ld bytes to user\n",
 			retval);
 		return -EFAULT;
 	}
@@ -76,6 +76,8 @@ static ssize_t fortytwo_write(struct file *fp, const char __user *buf,
 
 	retval = copy_from_user(tmpbuf, buf, 5);
 	if (retval) {
+		printk(KERN_ERR "/dev/fortytwo: could not copy %ld bytes from user\n",
+			retval);
 		return -EFAULT;
 	}
 
@@ -91,13 +93,13 @@ static int __init fortytwo_init(void)
 	int retval;
 
 	retval = misc_register(&fortytwo_dev);
-	if (retval == 0) {
-		printk(KERN_INFO "/dev/fortytwo: successfully registred\n");
-	} else {
+	if (retval) {
 		printk(KERN_ERR "/dev/fortytwo: failed to register\n");
+		return retval;
 	}
 
-	return retval;
+	printk(KERN_INFO "/dev/fortytwo: successfully registred\n");
+	return 0;
 }
 
 static void __exit fortytwo_cleanup(void)
