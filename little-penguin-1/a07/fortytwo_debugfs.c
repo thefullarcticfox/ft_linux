@@ -139,21 +139,14 @@ static ssize_t foo_file_read(struct file *fp, char __user *buf,
 		return 0;
 	}
 
-	/* *************** *
-	 * READ LOCK BEGIN *
-	 * *************** */
 	down_read(&foo_lock);
 
 	// additional check for data length (EOF)
 	len = min(len, strlen(foo_data + *offset));
-
 	retval = copy_to_user(buf, foo_data + *offset, len);
 	*offset += len - retval;
 
 	up_read(&foo_lock);
-	/* *************** *
-	 *  READ LOCK END  *
-	 * *************** */
 
 	if (retval) {
 		printk(KERN_ERR "/debugfs/fortytwo/foo: could not copy %ld bytes to user\n",
@@ -181,9 +174,6 @@ static ssize_t foo_file_write(struct file *fp, const char __user *buf,
 {
 	ssize_t	retval;
 
-	/* **************** *
-	 * WRITE LOCK BEGIN *
-	 * **************** */
 	down_write(&foo_lock);
 
 	if (*offset == 0) {
@@ -198,9 +188,6 @@ static ssize_t foo_file_write(struct file *fp, const char __user *buf,
 	*offset += len - retval;
 
 	up_write(&foo_lock);
-	/* **************** *
-	 *  WRITE LOCK END  *
-	 * **************** */
 
 	if (retval) {
 		printk(KERN_ERR "/debugfs/fortytwo/foo: could not copy %ld bytes from user\n",
