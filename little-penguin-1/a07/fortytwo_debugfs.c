@@ -179,11 +179,9 @@ static ssize_t foo_file_write(struct file *fp, const char __user *buf,
 	if (*offset == 0) {
 		memset(foo_data, 0, PAGE_SIZE);
 	}
-
 	if (*offset + len >= PAGE_SIZE) {
 		len = PAGE_SIZE - *offset;
 	}
-
 	retval = copy_from_user(foo_data + *offset, buf, len);
 	*offset += len - retval;
 
