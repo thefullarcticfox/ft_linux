@@ -145,7 +145,7 @@ static ssize_t foo_file_read(struct file *fp, char __user *buf,
 	down_read(&foo_lock);
 
 	// additional check for data length (EOF)
-	len = strlen(foo_data + *offset);
+	len = min(len, strlen(foo_data + *offset));
 
 	retval = copy_to_user(buf, foo_data + *offset, len);
 	*offset += len - retval;
