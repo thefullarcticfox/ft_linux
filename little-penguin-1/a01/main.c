@@ -4,7 +4,7 @@
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("salec aka thefullarcticfox");
-MODULE_DESCRIPTION("A Simple Hello World module for little-penguin-1");
+MODULE_DESCRIPTION("Simple Hello World module for little-penguin-1");
 MODULE_VERSION("0.01");
 
 static int __init hello_init(void)

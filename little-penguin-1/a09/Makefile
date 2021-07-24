@@ -1,4 +1,4 @@
-obj-m += main.o
+obj-m += mymounts.o
 
 KERNELDIR	= /lib/modules/$(shell uname -r)/build
 EXTRA_CFLAGS	= -Wall -g

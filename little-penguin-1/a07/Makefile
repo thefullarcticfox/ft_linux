@@ -1,10 +1,13 @@
 obj-m += fortytwo_debugfs.o
 
+KERNELDIR	= /lib/modules/$(shell uname -r)/build
+EXTRA_CFLAGS	= -Wall -g
+
 all:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+	make -C $(KERNELDIR) M=$(PWD) modules
 
 clean:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	make -C $(KERNELDIR) M=$(PWD) clean
 
 install:
 	sudo chmod a+rx /sys/kernel/debug

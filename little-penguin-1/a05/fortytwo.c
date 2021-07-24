@@ -10,7 +10,7 @@
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("salec aka thefullarcticfox");
-MODULE_DESCRIPTION("A Simple char device module for little-penguin-1");
+MODULE_DESCRIPTION("Simple char device module for little-penguin-1");
 MODULE_VERSION("0.01");
 
 static ssize_t fortytwo_read(struct file *fp, char __user *buf,

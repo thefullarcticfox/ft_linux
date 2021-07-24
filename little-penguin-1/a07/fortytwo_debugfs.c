@@ -6,14 +6,14 @@
 #include <linux/uaccess.h>	// included for copy_to_user, copy_from_user
 #include <linux/errno.h>	// included for EFAULT, ENODEV
 #include <linux/string.h>	// included for memcmp, strlen
-#include <linux/debugfs.h>	// included for debufs
+#include <linux/debugfs.h>	// included for debugfs
 #include <linux/jiffies.h>	// included for jiffies
 #include <linux/slab.h>		// included for kmalloc, kfree
 #include <linux/rwsem.h>	// included for read write locks
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("salec aka thefullarcticfox");
-MODULE_DESCRIPTION("A Simple debugfs module for little-penguin-1");
+MODULE_DESCRIPTION("Simple debugfs module for little-penguin-1");
 MODULE_VERSION("0.01");
 
 static struct dentry *fortytwo_dir = NULL;
