@@ -35,7 +35,7 @@ static struct proc_ops mymounts_pops = {
 	.proc_read = mymounts_read
 };
 
-static int mymounts_init(void)
+static int __init mymounts_init(void)
 {
 	mymounts_file = proc_create("mymounts", S_IRUGO, NULL, &mymounts_pops);
 	if (!mymounts_file) {
@@ -45,7 +45,7 @@ static int mymounts_init(void)
 	return 0;
 }
 
-static void mymounts_cleanup(void)
+static void __exit mymounts_cleanup(void)
 {
 	proc_remove(mymounts_file);
 }
