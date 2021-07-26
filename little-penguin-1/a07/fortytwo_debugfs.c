@@ -71,6 +71,8 @@ static ssize_t id_file_write(struct file *fp, const char __user *buf,
 
 	retval = copy_from_user(tmpbuf, buf, 5);
 	if (retval) {
+		printk(KERN_ERR "/dev/fortytwo: could not copy %ld bytes from user\n",
+			retval);
 		return -EFAULT;
 	}
 
