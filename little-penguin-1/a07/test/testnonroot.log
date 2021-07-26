@@ -1,4 +1,3 @@
-Error: Permission denied
 ----------------------------------------------------------------------
 >>>>> Testing /sys/kernel/debug/fortytwo/id
 >>> opening /sys/kernel/debug/fortytwo/id in mode 2
@@ -16,7 +15,7 @@ read: ec
 actual bytes read: 2
 
 > reading 10 bytes
-read: 
+read:
 actual bytes read: 0
 
 >>> opening /sys/kernel/debug/fortytwo/id in mode 2
@@ -80,6 +79,7 @@ actual bytes read: 11
 ----------------------------------------------------------------------
 >>>>> Testing /sys/kernel/debug/fortytwo/foo (root required to write)
 >>> opening /sys/kernel/debug/fortytwo/foo in mode 2
+Error: Permission denied
 ----------------------------------------------------------------------
 >>>>> Testing /sys/kernel/debug/fortytwo/foo
 >>> opening /sys/kernel/debug/fortytwo/foo in mode 0
