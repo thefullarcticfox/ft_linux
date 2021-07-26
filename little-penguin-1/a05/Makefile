@@ -9,4 +9,7 @@ all:
 clean:
 	make -C $(KERNELDIR) M=$(PWD) clean
 
+install:
+	sudo insmod fortytwo.ko
+
 re: clean all

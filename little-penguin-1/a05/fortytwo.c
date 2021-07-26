@@ -13,7 +13,7 @@ MODULE_AUTHOR("salec aka thefullarcticfox");
 MODULE_DESCRIPTION("Simple char device module for little-penguin-1");
 MODULE_VERSION("0.01");
 
-static const char *student_id = "salec\n";
+static const char *student_id = "salec";
 
 static ssize_t fortytwo_read(struct file *fp, char __user *buf,
 		size_t len, loff_t *offset);
@@ -59,7 +59,7 @@ static ssize_t fortytwo_write(struct file *fp, const char __user *buf,
 		return -EFAULT;
 	}
 
-	if (memcmp(tmpbuf, "salec", 5)) {
+	if (memcmp(tmpbuf, student_id, 5)) {
 		return -EINVAL;
 	}
 

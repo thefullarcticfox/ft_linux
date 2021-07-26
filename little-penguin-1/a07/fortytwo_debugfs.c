@@ -17,7 +17,7 @@ MODULE_DESCRIPTION("Simple debugfs module for little-penguin-1");
 MODULE_VERSION("0.01");
 
 static struct dentry *fortytwo_dir = NULL;
-static const char *student_id = "salec\n";
+static const char *student_id = "salec";
 
 DECLARE_RWSEM(foo_lock);
 static char *foo_data = NULL;
@@ -74,7 +74,7 @@ static ssize_t id_file_write(struct file *fp, const char __user *buf,
 		return -EFAULT;
 	}
 
-	if (memcmp(tmpbuf, "salec", 5)) {
+	if (memcmp(tmpbuf, student_id, 5)) {
 		return -EINVAL;
 	}
 
