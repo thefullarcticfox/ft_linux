@@ -48,8 +48,8 @@ static ssize_t reverse_read(struct file *fp, char __user *user,
 	for (t = strlen(str) - 1, i = 0; t >= 0; t--, i++) {
 		tmp[i] = str[t];
 	}
-	up_read(&reverse_lock);
 	tmp[i] = 0x0;
+	up_read(&reverse_lock);
 
 	retval = simple_read_from_buffer(user, size, offset, tmp, strlen(tmp));
 	kfree(tmp);

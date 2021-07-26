@@ -17,6 +17,7 @@ MODULE_DESCRIPTION("Simple debugfs module for little-penguin-1");
 MODULE_VERSION("0.01");
 
 static struct dentry *fortytwo_dir = NULL;
+static const char *student_id = "salec\n";
 
 DECLARE_RWSEM(foo_lock);
 static char *foo_data = NULL;
@@ -52,24 +53,8 @@ static const struct file_operations foo_file_fops = {
 static ssize_t id_file_read(struct file *fp, char __user *buf,
 		size_t len, loff_t *offset)
 {
-	ssize_t retval;
-
-	if (len == 0) {
-		return 0;
-	}
-
-	if (len > 5) {
-		len = 5;
-	}
-
-	retval = copy_to_user(buf, "salec", len);
-	if (retval) {
-		printk(KERN_ERR "/dev/fortytwo: could not copy %ld bytes\n",
-			retval);
-		return -EFAULT;
-	}
-
-	return len;
+	return simple_read_from_buffer(buf, len, offset, student_id,
+		strlen(student_id));
 }
 
 static ssize_t id_file_write(struct file *fp, const char __user *buf,
@@ -99,31 +84,10 @@ static ssize_t id_file_write(struct file *fp, const char __user *buf,
 static ssize_t jiffies_file_read(struct file *fp, char __user *buf,
 		size_t len, loff_t *offset)
 {
-	u64	timer;
-	ssize_t retval;
 	char	str[64];
-	size_t	sz;
 
-	if (len <= 0) {
-		return 0;
-	}
-
-	timer = get_jiffies_64();
-	snprintf(str, sizeof(str), "%lld", timer);
-	sz = strlen(str);
-
-	if (len > sz) {
-		len = sz;
-	}
-
-	retval = copy_to_user(buf, str, len);
-	if (retval) {
-		printk(KERN_ERR "/debugfs/fortytwo/jiffies: could not copy %ld bytes\n",
-			retval);
-		return -EFAULT;
-	}
-
-	return len;
+	snprintf(str, sizeof(str), "%lld\n", get_jiffies_64());
+	return simple_read_from_buffer(buf, len, offset, str, strlen(str));
 }
 
 static ssize_t foo_file_read(struct file *fp, char __user *buf,

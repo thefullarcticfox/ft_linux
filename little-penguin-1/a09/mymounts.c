@@ -9,6 +9,9 @@
 #include <linux/proc_fs.h>	// included for proc
 #include <linux/slab.h>		// included for kmalloc, kfree
 #include <linux/rwsem.h>	// included for read write locks
+#include <linux/nsproxy.h>	// included for nsproxy
+#include <linux/list.h>		// included for list_for_each_entry
+#include "mymounts.h"		// included for non exported by linux kernel struct defs
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("salec aka thefullarcticfox");
@@ -16,38 +19,72 @@ MODULE_DESCRIPTION("Proc module listing mount points for little-penguin-1");
 MODULE_VERSION("0.01");
 
 static struct proc_dir_entry *mymounts_file = NULL;
-
-static int mymounts_open(struct inode *node, struct file *fp)
-{
-	printk(KERN_DEBUG "open handler\n");
-	return 0;
-}
+static char *mymounts_data = NULL;
 
 static ssize_t mymounts_read(struct file *fp, char __user *buf,
 		size_t len, loff_t *offset)
 {
-	printk(KERN_DEBUG "read handler\n");
-	return 0;
+	struct mnt_namespace	*ns = current->nsproxy->mnt_ns;
+	struct mount		*mnt;
+	const char 		*name;
+	const char 		*path;
+	char			*tmpbuf;
+
+	tmpbuf = kmalloc(sizeof(char) * PAGE_SIZE, GFP_KERNEL);
+	memset(mymounts_data, 0, PAGE_SIZE);
+
+	list_for_each_entry(mnt, &(ns->list), mnt_list) {
+		name = "none";
+		path = "none";
+
+		if (mnt->mnt_devname) {
+			name = mnt->mnt_devname;
+		}
+		if (mnt->mnt_mountpoint) {
+			path = dentry_path_raw(mnt->mnt_mountpoint, tmpbuf, PAGE_SIZE);
+		}
+
+		if (!strcmp(name, "none") && !strcmp(path, "/")) {
+			name = "root";
+		}
+
+		snprintf(mymounts_data, PAGE_SIZE, "%s%-20s%s\n", mymounts_data, name, path);
+	}
+
+	kfree(tmpbuf);
+
+	return simple_read_from_buffer(buf, len, offset, mymounts_data, strlen(mymounts_data));
 }
 
-static struct proc_ops mymounts_pops = {
-	.proc_open = mymounts_open,
+static struct proc_ops mymounts_ops = {
 	.proc_read = mymounts_read
 };
 
 static int __init mymounts_init(void)
 {
-	mymounts_file = proc_create("mymounts", S_IRUGO, NULL, &mymounts_pops);
+	mymounts_file = proc_create("mymounts", S_IRUGO, NULL, &mymounts_ops);
 	if (!mymounts_file) {
 		printk(KERN_ERR "/proc/mymounts: proc_create failed\n");
 		return -EFAULT;
 	}
+
+	mymounts_data = kmalloc(sizeof(char) * PAGE_SIZE, GFP_KERNEL);
+
+	if (!mymounts_data) {
+		printk(KERN_ERR "/proc/mymounts: failed to allocate memory\n");
+		return -ENOMEM;
+	}
+
+	printk(KERN_INFO "/proc/mymounts: created\n");
+
 	return 0;
 }
 
 static void __exit mymounts_cleanup(void)
 {
 	proc_remove(mymounts_file);
+	kfree(mymounts_data);
+	printk(KERN_INFO "/proc/mymounts: removed\n");
 }
 
 module_init(mymounts_init);
