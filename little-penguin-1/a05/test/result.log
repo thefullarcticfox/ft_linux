@@ -1,14 +1,25 @@
+>>> opening /dev/fortytwo in mode 2
 > reading 5 bytes
 read: salec
+actual bytes read: 5
 
+>>> opening /dev/fortytwo in mode 2
 > reading 3 bytes
 read: sal
+actual bytes read: 3
 
 > reading 2 bytes
-read: sa
+read: ec
+actual bytes read: 2
 
+> reading 10 bytes
+read: 
+actual bytes read: 0
+
+>>> opening /dev/fortytwo in mode 2
 > reading 24 bytes
 read: salec
+actual bytes read: 5
 
 > writing `salec`
 successfully wrote 5 bytes

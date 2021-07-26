@@ -1,17 +1,24 @@
---------------------
-> Testing /sys/kernel/debug/fortytwo/id
+----------------------------------------------------------------------
+>>>>> Testing /sys/kernel/debug/fortytwo/id
+>>> opening /sys/kernel/debug/fortytwo/id in mode 2
 > reading 5 bytes
 read: salec
 actual bytes read: 5
 
+>>> opening /sys/kernel/debug/fortytwo/id in mode 2
 > reading 3 bytes
 read: sal
 actual bytes read: 3
 
 > reading 2 bytes
-read: sa
+read: ec
 actual bytes read: 2
 
+> reading 10 bytes
+read: 
+actual bytes read: 0
+
+>>> opening /sys/kernel/debug/fortytwo/id in mode 2
 > reading 24 bytes
 read: salec
 actual bytes read: 5
@@ -28,29 +35,31 @@ errno: 22 Invalid argument
 > writing `salec42`
 errno: 22 Invalid argument
 
---------------------
-> Testing /sys/kernel/debug/fortytwo/jiffies
+----------------------------------------------------------------------
+>>>>> Testing /sys/kernel/debug/fortytwo/jiffies
+>>> opening /sys/kernel/debug/fortytwo/jiffies in mode 0
 > reading 5 bytes
 read: 42947
 actual bytes read: 5
 
 > reading 3 bytes
-read: 429
+read: 263
 actual bytes read: 3
 
 > reading 11 bytes
-read: 4294763120
-actual bytes read: 10
+read: 29
 
+actual bytes read: 3
+
+>>> opening /sys/kernel/debug/fortytwo/jiffies in mode 0
 > reading 42 bytes
-read: 4294763120
-actual bytes read: 10
+read: 4294726329
 
-> writing `salec`
-errno: 9 Bad file descriptor
+actual bytes read: 11
 
---------------------
-> Testing /sys/kernel/debug/fortytwo/foo
+----------------------------------------------------------------------
+>>>>> Testing /sys/kernel/debug/fortytwo/foo
+>>> opening /sys/kernel/debug/fortytwo/foo in mode 0
 > reading 5 bytes
 read: 
 actual bytes read: 0
@@ -67,8 +76,9 @@ actual bytes read: 0
 read: 
 actual bytes read: 0
 
---------------------
-> Testing /sys/kernel/debug/fortytwo/foo (root required to write)
+----------------------------------------------------------------------
+>>>>> Testing /sys/kernel/debug/fortytwo/foo (root required to write)
+>>> opening /sys/kernel/debug/fortytwo/foo in mode 2
 > reading 5 bytes
 read: 
 actual bytes read: 0
@@ -97,8 +107,9 @@ successfully wrote 4 bytes
 > writing `salec42`
 successfully wrote 7 bytes
 
---------------------
-> Testing /sys/kernel/debug/fortytwo/foo
+----------------------------------------------------------------------
+>>>>> Testing /sys/kernel/debug/fortytwo/foo
+>>> opening /sys/kernel/debug/fortytwo/foo in mode 0
 > reading 5 bytes
 read: salec
 actual bytes read: 5
@@ -115,3 +126,8 @@ actual bytes read: 2
 read: salesalec42
 actual bytes read: 11
 
+----------------------------------------------------------------------
+>>>>> Permissions:
+/sys/kernel/debug/fortytwo/id      : -rw-rw-rw-
+/sys/kernel/debug/fortytwo/jiffies : -r--r--r--
+/sys/kernel/debug/fortytwo/foo     : -rw-r--r--
