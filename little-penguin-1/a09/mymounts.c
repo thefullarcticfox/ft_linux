@@ -90,8 +90,8 @@ static int __init mymounts_init(void)
 
 static void __exit mymounts_cleanup(void)
 {
-	proc_remove(mymounts_file);
 	kfree(mymounts_data);
+	proc_remove(mymounts_file);
 	printk(KERN_INFO "/proc/mymounts: removed\n");
 }
 
