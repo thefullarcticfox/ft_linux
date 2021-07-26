@@ -11,6 +11,7 @@ clean:
 	make -C $(KERNELDIR) M=$(PWD) clean
 
 install:
+	sudo chmod a+rx /sys/kernel/debug
 	sudo insmod $(MODULENAME).ko
 
 uninstall:
