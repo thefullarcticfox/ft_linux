@@ -1,4 +1,6 @@
-obj-m += fortytwo.o
+MODULENAME = fortytwo
+
+obj-m += $(MODULENAME).o
 
 KERNELDIR	= /lib/modules/$(shell uname -r)/build
 EXTRA_CFLAGS	= -Wall -g
@@ -10,6 +12,9 @@ clean:
 	make -C $(KERNELDIR) M=$(PWD) clean
 
 install:
-	sudo insmod fortytwo.ko
+	sudo insmod $(MODULENAME).ko
+
+uninstall:
+	sudo rmmod $(MODULENAME)
 
 re: clean all

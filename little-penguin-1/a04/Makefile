@@ -1,12 +1,19 @@
-obj-m += simple_usb_keyboard_module.o
-
+MODULENAME	= simple_usb_keyboard_module
 KERNELDIR	= /lib/modules/$(shell uname -r)/build
 EXTRA_CFLAGS	= -Wall -g
+
+obj-m += $(MODULENAME).o
 
 all:
 	make -C $(KERNELDIR) M=$(PWD) modules
 
 clean:
 	make -C $(KERNELDIR) M=$(PWD) clean
+
+install:
+	sudo insmod $(MODULENAME).ko
+
+uninstall:
+	sudo rmmod $(MODULENAME)
 
 re: clean all

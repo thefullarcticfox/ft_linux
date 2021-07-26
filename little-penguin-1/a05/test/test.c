@@ -4,15 +4,18 @@
 #include <stdio.h>
 #include <string.h>
 
-void	printerrno() {
+#define FILE "/dev/fortytwo"
+
+void	printerrno()
+{
 	printf("errno: %d %s\n", errno, strerror(errno));
 	errno = 0;
 }
 
 void	readtest(int fd, size_t bytes)
 {
+	char	buf[bytes + 1];
 	ssize_t	retval;
-	char	buf[42];
 
 	printf("> reading %ld bytes\n", bytes);
 	retval = read(fd, buf, bytes);
@@ -21,7 +24,7 @@ void	readtest(int fd, size_t bytes)
 		printerrno();
 	} else {
 		buf[retval] = 0;
-		printf("read: %s\n", buf);
+		printf("read: %s\nactual bytes read: %ld\n", buf, retval);
 	}
 
 	printf("\n");
@@ -43,26 +46,39 @@ void	writetest(int fd, const char* buf)
 	printf("\n");
 }
 
-int		main()
+int	open_fd(const char *path, int oflag)
 {
-	int		fd;
+	int	fd;
 
-	if ((fd = open("/dev/fortytwo", O_RDWR)) < 0) {
+	printf(">>> opening %s in mode %d\n", path, oflag);
+	if ((fd = open(path, oflag)) < 0) {
 		perror("Error");
-		return 1;
 	}
 
+	return fd;
+}
+
+int	main()
+{
+	int	fd;
+
+	fd = open_fd(FILE, O_RDWR);
 	readtest(fd, 5);
+	close(fd);
+
+	fd = open_fd(FILE, O_RDWR);
 	readtest(fd, 3);
 	readtest(fd, 2);
-	readtest(fd, 24);
+	readtest(fd, 10);
+	close(fd);
 
+	fd = open_fd(FILE, O_RDWR);
+	readtest(fd, 24);
 	writetest(fd, "salec");
 	writetest(fd, "sales");
 	writetest(fd, "sale");
 	writetest(fd, "salec42");
-
 	close(fd);
 
-    return 0;
+	return 0;
 }
