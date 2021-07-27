@@ -11,7 +11,7 @@ MODULE_AUTHOR("Louis Solofrizzo <louis@ne02ptzero.me>");
 MODULE_DESCRIPTION("Reverse module");
 
 DECLARE_RWSEM(reverse_lock);
-static char str[PAGE_SIZE + 1];
+static char reverse_data[PAGE_SIZE + 1];
 
 static ssize_t reverse_read(struct file *fp, char __user *user,
 		size_t size, loff_t *offset);
@@ -45,13 +45,14 @@ static ssize_t reverse_read(struct file *fp, char __user *user,
 	}
 
 	down_read(&reverse_lock);
-	for (t = strlen(str) - 1, i = 0; t >= 0; t--, i++) {
-		tmp[i] = str[t];
+	for (t = strlen(reverse_data) - 1, i = 0; t >= 0; t--, i++) {
+		tmp[i] = reverse_data[t];
 	}
 	tmp[i] = 0x0;
 	up_read(&reverse_lock);
 
-	retval = simple_read_from_buffer(user, size, offset, tmp, strlen(tmp));
+	retval = simple_read_from_buffer(user, size, offset,
+		tmp, strlen(tmp));
 	kfree(tmp);
 
 	return retval;
@@ -63,8 +64,9 @@ static ssize_t reverse_write(struct file *fp, const char __user *user,
 	ssize_t retval = 0;
 
 	down_write(&reverse_lock);
-	retval = simple_write_to_buffer(str, size, offset, user, PAGE_SIZE);
-	str[retval] = 0x0;
+	retval = simple_write_to_buffer(reverse_data, size, offset,
+		user, PAGE_SIZE);
+	reverse_data[retval] = 0x0;
 	up_write(&reverse_lock);
 
 	return retval;
@@ -75,7 +77,7 @@ static int __init reverse_init(void)
 	int retval;
 
 	retval = misc_register(&reverse_device);
-	memset(str, 0, PAGE_SIZE + 1);
+	memset(reverse_data, 0, PAGE_SIZE + 1);
 
 	return retval;
 }
