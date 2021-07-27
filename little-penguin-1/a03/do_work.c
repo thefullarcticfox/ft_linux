@@ -5,11 +5,9 @@
 
 MODULE_LICENSE("GPL");
 
-int do_work(int *my_int, int retval)
+int do_work(int y)
 {
 	int x = 0;
-	int y = *my_int;
-	int z;
 
 	for (; x < y; ++x) {
 		udelay(10);
@@ -20,16 +18,14 @@ int do_work(int *my_int, int retval)
 		pr_info("We slept a long time!");
 	}
 
-	z = x * y;
-
-	return z;
+	return x * y;
 }
 
 int work_init(void)
 {
 	int x = 10;
 
-	x = do_work(&x, x);
+	x = do_work(&x);
 
 	return x;
 }
