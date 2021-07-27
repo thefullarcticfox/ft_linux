@@ -7,9 +7,9 @@ MODULE_LICENSE("GPL");
 
 int do_work(int y)
 {
-	int x = 0;
+	int x;
 
-	for (; x < y; ++x) {
+	for (x = 0; x < y; ++x) {
 		udelay(10);
 	}
 
@@ -25,7 +25,7 @@ int work_init(void)
 {
 	int x = 10;
 
-	x = do_work(&x);
+	x = do_work(x);
 
 	return x;
 }
