@@ -39,7 +39,7 @@ static ssize_t reverse_read(struct file *fp, char __user *user,
 	char	*tmp;
 	ssize_t	retval;
 
-	tmp = (char*)kmalloc(sizeof(char) * (PAGE_SIZE + 1), GFP_KERNEL);
+	tmp = (char *)kmalloc(sizeof(char) * (PAGE_SIZE + 1), GFP_KERNEL);
 	if (!tmp) {
 		return -ENOMEM;
 	}
