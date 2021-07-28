@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-2.0
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/delay.h>
@@ -9,9 +10,8 @@ int do_work(int y)
 {
 	int x;
 
-	for (x = 0; x < y; ++x) {
-		udelay(10);
-	}
+	for (x = 0; x < y; ++x)
+		usleep_range(9, 11);
 
 	if (y < 10) {
 		/* That was a long sleep, tell userspace about it */
